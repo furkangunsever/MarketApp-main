@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -8,11 +8,11 @@ import {
   Alert,
   ImageBackground,
 } from 'react-native';
-import { bluee } from '../../assets/images';
+import {bluee} from '../../assets/images';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Göz ikonu için
 import auth from '@react-native-firebase/auth';
 
-const Page2 = ({ navigation }) => {
+const Page2 = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false); // Şifre görünürlük durumu
@@ -32,7 +32,7 @@ const Page2 = ({ navigation }) => {
         Alert.alert('Başarılı', 'Giriş başarılı!');
         navigation.navigate('home'); // Page6 sayfasına yönlendir
       })
-      .catch((error) => {
+      .catch(error => {
         if (error.code === 'auth/user-not-found') {
           Alert.alert('Hata', 'Kullanıcı bulunamadı!');
         } else if (error.code === 'auth/wrong-password') {
@@ -174,4 +174,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Page2;
+export default Page2;

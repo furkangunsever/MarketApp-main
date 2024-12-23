@@ -20,7 +20,8 @@ import {
   ProfileScreen,
   NotificationSettings,
   ChatBot,
-  Page3
+  Page3,
+  Hakkimizda,
 } from '../screens';
 const Stack = createNativeStackNavigator();
 
@@ -92,9 +93,15 @@ const MyStack = () => {
         component={NotificationSettings}
       />
       <Stack.Screen
+
         options={{title: 'Chat', headerShown: true}}
         name="Chat"
         component={ChatBot}
+       />
+       <Stack.Screen
+        options={{title: 'Hakkimizda', headerShown: true}}
+        name="Hakkimizda"
+        component={Hakkimizda}
       />
     </Stack.Navigator>
   );
