@@ -18,7 +18,10 @@ import {
   HomePageDetails,
   SettingsScreen,
   ProfileScreen,
-  NotificationSettings
+  NotificationSettings,
+  ChatBot,
+  Page3,
+  Hakkimizda,
 } from '../screens';
 const Stack = createNativeStackNavigator();
 
@@ -29,6 +32,7 @@ const MyStack = () => {
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="kayit" component={Page1} />
       <Stack.Screen name="giris" component={Page2} />
+      <Stack.Screen name="sifreunuttum" component={Page3} />
       <Stack.Screen name="home" component={HomePage} />
       <Stack.Screen name="like" component={LikePages} />
       <Stack.Screen name="search" component={SearchPage} />
@@ -87,6 +91,17 @@ const MyStack = () => {
         options={{title: 'Bildirim Sayfası', headerShown: true}}
         name="NotificationSettings"
         component={NotificationSettings}
+      />
+      <Stack.Screen
+
+        options={{title: 'Chat', headerShown: true}}
+        name="Chat"
+        component={ChatBot}
+       />
+       <Stack.Screen
+        options={{title: 'Hakkimizda', headerShown: true}}
+        name="Hakkimizda"
+        component={Hakkimizda}
       />
     </Stack.Navigator>
   );

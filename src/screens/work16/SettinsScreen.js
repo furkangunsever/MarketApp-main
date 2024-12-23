@@ -2,8 +2,21 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import CustomButton from '../../components/CustomButton/CustomButton';
+import auth from '@react-native-firebase/auth';
 
 const SettingsScreen = ({navigation}) => {
+  const handleLogout = async () => {
+    try {
+      await auth().signOut();
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'giris'}],
+      });
+    } catch (error) {
+      console.error('Çıkış yapılırken hata oluştu:', error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.text_contein}>
@@ -14,7 +27,7 @@ const SettingsScreen = ({navigation}) => {
       {/* Hesap Detayları Butonları */}
       <CustomButton
         text="Kişisel Bilgilerim"
-        onPress={() => navigation.navigate('ProfileScreen')} // 'RoutesNames.PROFİLEPAGE' yerine doğrudan ekran adı kullanıldı
+        onPress={() => navigation.navigate('ProfileScreen')}
       />
       <CustomButton
         text="Bildirim Ayarlarım"
@@ -28,18 +41,13 @@ const SettingsScreen = ({navigation}) => {
         text="E-posta Adresimi Güncelle"
         onPress={() => console.log('E-posta Adresimi Güncelle')}
       />
-      <CustomButton text="Çıkış" onPress={() => console.log('Çıkış')} />
+      <CustomButton text="Çıkış" onPress={handleLogout} />
 
-      {/* Hakkında Butonları */}
-      <Text style={styles.sectionTitle}>Hakkında</Text>
-      <CustomButton text="Hakkında" onPress={() => console.log('Hakkında')} />
+      {/* Hakkimizda Butonları */}
+      <Text style={styles.sectionTitle}>Hakkımızda</Text>
       <CustomButton
-        text="Uygulamayı Değerlendir"
-        onPress={() => console.log('Uygulamayı Değerlendir')}
-      />
-      <CustomButton
-        text="Kişisel Verilerin Korunması"
-        onPress={() => console.log('Kişisel Verilerin Korunması')}
+        text="Hakkımızda"
+        onPress={() => navigation.navigate('Hakkimizda')}
       />
     </View>
   );
