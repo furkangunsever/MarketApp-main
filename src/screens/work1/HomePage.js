@@ -7,6 +7,7 @@ import Icecek from '../../components/Icecek/Icecek';
 import DonukUrun from '../../components/DonukUrun/DonukUrun';
 import Etbalık from '../../components/Etbalık/Etbalık';
 import BottomTabs from '../../components/BottomTabs/BottomTabs';
+import { chat } from '../../assets/icons';
 
 const HomePage = ({ navigation }) => {
 

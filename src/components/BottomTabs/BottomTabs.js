@@ -1,6 +1,6 @@
 import { View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { home, setting, search, kalp } from '../../assets/icons';
+import { home, setting, search, kalp, chat } from '../../assets/icons';
 import styles from './styles';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
@@ -23,7 +23,6 @@ const BottomTabs = () => {
         <Image
           style={[
             styles.resim,
-            { tintColor: currentRouteName === 'Home' ? 'blue' : 'gray' }, // Aktif sayfaya mavi renk
           ]}
           source={home}
         />
@@ -33,17 +32,28 @@ const BottomTabs = () => {
         <Image
           style={[
             styles.resim,
-            { tintColor: currentRouteName === 'Search' ? 'blue' : 'gray' }, // Aktif sayfaya mavi renk
           ]}
           source={search}
         />
+      </TouchableOpacity>
+      <TouchableOpacity style={{
+          width: 70,
+          height: 70,
+          borderRadius: 35, // Yuvarlak çerçeve için tam ortalama
+          backgroundColor: "white",
+          borderWidth: 1, // Çerçeve kalınlığı
+          borderColor: "rgba(0, 0, 0, 0.5)", // Hafif siyah çerçeve
+          alignItems: "center",
+          justifyContent: "center",
+          bottom:30
+        }} onPress={()=>navigation.navigate("Chat")}>
+        <Image style={{ width: 50, height: 50 }} source={chat} />
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => handleTabPress('like')}>
         <Image
           style={[
             styles.resim,
-            { tintColor: currentRouteName === 'Kalp' ? 'blue' : 'gray' }, // Aktif sayfaya mavi renk
           ]}
           source={kalp}
         />
@@ -53,7 +63,6 @@ const BottomTabs = () => {
         <Image
           style={[
             styles.resim,
-            { tintColor: currentRouteName === 'Setting' ? 'blue' : 'gray' }, // Aktif sayfaya mavi renk
           ]}
           source={setting}
         />

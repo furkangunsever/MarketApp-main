@@ -15,6 +15,7 @@ import HomePageDetails from './work15/HomePageDetail';
 import SettingsScreen from './work16/SettinsScreen';
 import ProfileScreen from './work17/ProfileScreen';
 import NotificationSettings from './work18/NotificationSettings';
+import ChatBot from './work19/ChatBot';
 export {
   HomePage,
   SearchPage,
@@ -32,5 +33,6 @@ export {
   HomePageDetails,
   SettingsScreen,
   ProfileScreen,
-  NotificationSettings
+  NotificationSettings,
+  ChatBot,
 };

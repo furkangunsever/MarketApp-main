@@ -4,5 +4,6 @@ const home = require('../icons/home.png');
 const search = require('../icons/search.png');
 const setting = require('../icons/setting.png');
 const right_arrow = require('../icons/right_arrow.png');
+const chat = require('../icons/chat.png');
 
-export {kalp, kalpdolu, home, search, setting,right_arrow};
+export {kalp, kalpdolu, home, search, setting,right_arrow, chat};
