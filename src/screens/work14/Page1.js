@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -9,7 +9,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Göz ikonu için
-import { bluee } from '../../assets/images';
+import {bluee} from '../../assets/images';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
@@ -27,21 +27,24 @@ const Page1 = () => {
     }
 
     try {
-      const userCredential = await auth().createUserWithEmailAndPassword(email, password);
-      const { uid } = userCredential.user;
+      const userCredential = await auth().createUserWithEmailAndPassword(
+        email,
+        password,
+      );
+      const {uid} = userCredential.user;
 
       // Firestore'a kullanıcı bilgilerini kaydet
-      await firestore()
-        .collection('users')
-        .doc(uid)
-        .set({
-          name: firstName,
-          lastname: lastName,
-          email: email,
-          createdAt: firestore.FieldValue.serverTimestamp(),
-        });
+      await firestore().collection('users').doc(uid).set({
+        name: firstName,
+        lastname: lastName,
+        email: email,
+        createdAt: firestore.FieldValue.serverTimestamp(),
+      });
 
-      Alert.alert('Başarılı', 'Kayıt başarıyla tamamlandı ve veritabanına eklendi!');
+      Alert.alert(
+        'Başarılı',
+        'Kayıt başarıyla tamamlandı ve veritabanına eklendi!',
+      );
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         Alert.alert('Hata', 'Bu e-posta adresi zaten kullanılıyor!');
@@ -178,4 +181,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Page1;
+export default Page1;

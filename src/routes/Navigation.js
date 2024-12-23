@@ -18,7 +18,8 @@ import {
   HomePageDetails,
   SettingsScreen,
   ProfileScreen,
-  NotificationSettings
+  NotificationSettings,
+  Hakkimizda,
 } from '../screens';
 const Stack = createNativeStackNavigator();
 
@@ -87,6 +88,11 @@ const MyStack = () => {
         options={{title: 'Bildirim Sayfası', headerShown: true}}
         name="NotificationSettings"
         component={NotificationSettings}
+      />
+      <Stack.Screen
+        options={{title: 'Hakkimizda', headerShown: true}}
+        name="Hakkimizda"
+        component={Hakkimizda}
       />
     </Stack.Navigator>
   );
