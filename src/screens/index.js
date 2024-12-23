@@ -37,6 +37,6 @@ export {
   ProfileScreen,
   NotificationSettings,
   ChatBot,
-  Page3
+  Page3,
   Hakkimizda,
 };

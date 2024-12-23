@@ -7,5 +7,5 @@ const right_arrow = require('../icons/right_arrow.png');
 const chat = require('../icons/chat.png')
 const user = require('../icons/user.png');
 
-export {kalp, kalpdolu, home, search, setting,right_arrow,chat};
+export {kalp, kalpdolu, home, search, setting,right_arrow,chat,user};
 
