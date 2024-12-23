@@ -8,53 +8,52 @@ import {
   Alert,
   ImageBackground,
 } from 'react-native';
-import auth from '@react-native-firebase/auth';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Göz ikonu için
 import { bluee } from '../../assets/images';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
-const Page1 = ({navigation}) => {
+const Page1 = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // Şifre görünürlük durumu
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     if (!firstName || !lastName || !email || !password) {
       Alert.alert('Hata', 'Tüm alanları doldurun!');
       return;
     }
 
-    auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        const currentUser = auth().currentUser;
+    try {
+      const userCredential = await auth().createUserWithEmailAndPassword(email, password);
+      const { uid } = userCredential.user;
 
-        if (currentUser) {
-          currentUser
-            .updateProfile({
-              displayName: "${firstName} ${lastName}",
-            })
-            .then(() => {
-              Alert.alert('Başarılı', 'Kayıt başarıyla tamamlandı!');
-            })
-            .catch(() => {
-              Alert.alert(
-                'Hata',
-                'Kullanıcı bilgileri güncellenirken bir hata oluştu!'
-              );
-            });
-        }
-      })
-      .catch((error) => {
-        if (error.code === 'auth/email-already-in-use') {
-          Alert.alert('Hata', 'Bu e-posta adresi zaten kullanılıyor!');
-        } else if (error.code === 'auth/invalid-email') {
-          Alert.alert('Hata', 'Geçersiz e-posta adresi!');
-        } else if (error.code === 'auth/weak-password') {
-          Alert.alert('Hata', 'Şifre çok zayıf!');
-        } else {
-          Alert.alert('Hata', 'Bir sorun oluştu!');
-        }
-      });
+      // Firestore'a kullanıcı bilgilerini kaydet
+      await firestore()
+        .collection('users')
+        .doc(uid)
+        .set({
+          name: firstName,
+          lastname: lastName,
+          email: email,
+          createdAt: firestore.FieldValue.serverTimestamp(),
+        });
+
+      Alert.alert('Başarılı', 'Kayıt başarıyla tamamlandı ve veritabanına eklendi!');
+    } catch (error) {
+      if (error.code === 'auth/email-already-in-use') {
+        Alert.alert('Hata', 'Bu e-posta adresi zaten kullanılıyor!');
+      } else if (error.code === 'auth/invalid-email') {
+        Alert.alert('Hata', 'Geçersiz e-posta adresi!');
+      } else if (error.code === 'auth/weak-password') {
+        Alert.alert('Hata', 'Şifre çok zayıf!');
+      } else {
+        Alert.alert('Hata', 'Bir sorun oluştu!');
+      }
+      console.error('Firebase Hatası:', error);
+    }
   };
 
   return (
@@ -67,6 +66,7 @@ const Page1 = ({navigation}) => {
           value={firstName}
           onChangeText={setFirstName}
           style={styles.input}
+          autoCapitalize="none"
         />
 
         <TextInput
@@ -74,6 +74,7 @@ const Page1 = ({navigation}) => {
           value={lastName}
           onChangeText={setLastName}
           style={styles.input}
+          autoCapitalize="none"
         />
 
         <TextInput
@@ -82,21 +83,30 @@ const Page1 = ({navigation}) => {
           onChangeText={setEmail}
           style={styles.input}
           keyboardType="email-address"
+          autoCapitalize="none"
         />
 
-        <TextInput
-          placeholder="Şifre"
-          value={password}
-          onChangeText={setPassword}
-          style={styles.input}
-          secureTextEntry
-        />
+        <View style={styles.passwordContainer}>
+          <TextInput
+            placeholder="Şifre"
+            value={password}
+            onChangeText={setPassword}
+            style={styles.passwordInput}
+            secureTextEntry={!showPassword} // Şifre görünürlüğünü kontrol et
+            autoCapitalize="none"
+          />
+          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+            <Icon
+              name={showPassword ? 'eye-off' : 'eye'} // İkonu değiştir
+              size={25}
+              color="#000053"
+              style={styles.eyeIcon}
+            />
+          </TouchableOpacity>
+        </View>
 
         <TouchableOpacity style={styles.button} onPress={handleSignUp}>
           <Text style={styles.buttonText}>Kayıt Ol</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.registerButton} onPress={()=>navigation.navigate("giris") }>
-          <Text style={styles.registerButtonText}>Giriş Yap</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
@@ -106,7 +116,7 @@ const Page1 = ({navigation}) => {
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
-    resizeMode: 'cover', // Arka plan resmi boyutlandırma
+    resizeMode: 'cover',
   },
   container: {
     flex: 1,
@@ -130,7 +140,27 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 10,
     marginBottom: 15,
-    backgroundColor: '#ffffffaa', // Arka planla kontrast için yarı saydam
+    backgroundColor: '#ffffffaa',
+    color: '#000',
+  },
+  passwordContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '80%',
+    height: 50,
+    borderWidth: 1,
+    borderColor: 'white',
+    borderRadius: 8,
+    backgroundColor: '#ffffffaa',
+    marginBottom: 15,
+  },
+  passwordInput: {
+    flex: 1,
+    paddingHorizontal: 10,
+    color: '#000',
+  },
+  eyeIcon: {
+    marginRight: 10,
   },
   button: {
     backgroundColor: '#000053',
@@ -143,22 +173,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#ffffff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  registerButton: {
-    backgroundColor: '#ffffff', // Beyaz arka plan
-    borderColor: '#000053', // Mavi kenarlık
-    borderWidth: 2,
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    borderRadius: 10,
-    marginTop: 10,
-    width: '80%',
-    alignItems: 'center',
-  },
-  registerButtonText: {
-    color: '#000053', // Mavi yazı rengi
     fontSize: 18,
     fontWeight: 'bold',
   },
