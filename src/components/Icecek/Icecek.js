@@ -41,7 +41,7 @@ const AburCubur = ({
   const fetchIcecek = async () => {
     try {
       console.log('Veri çekme işlemi başlıyor...');
-      const response = await fetch('http://192.168.13.159:5001/icecek');
+      const response = await fetch('http://172.20.10.12:5001/icecek');
       if (!response.ok) {
         throw new Error(`Sunucu hatası: ${response.status}`);
       }

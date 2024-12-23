@@ -15,7 +15,9 @@ import HomePageDetails from './work15/HomePageDetail';
 import SettingsScreen from './work16/SettinsScreen';
 import ProfileScreen from './work17/ProfileScreen';
 import NotificationSettings from './work18/NotificationSettings';
-import Hakkimizda from './work19/Hakkimizda';
+import ChatBot from './work19/ChatBot';
+import Page3 from './work20/Page3';
+import Hakkimizda from './work21/Hakkimizda';
 export {
   HomePage,
   SearchPage,
@@ -34,5 +36,7 @@ export {
   SettingsScreen,
   ProfileScreen,
   NotificationSettings,
+  ChatBot,
+  Page3
   Hakkimizda,
 };
