@@ -47,7 +47,7 @@ const HomePageDetails = ({route}) => {
 
   const fetchSimilarProducts = async () => {
     try {
-      const response = await fetch('http://192.168.13.159:5001/tum_urunler');
+      const response = await fetch('http://10.192.112.212:5001/tum_urunler');
       if (!response.ok) {
         throw new Error(`API Hatası: ${response.status}`);
       }

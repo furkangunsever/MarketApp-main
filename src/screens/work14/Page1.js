@@ -13,7 +13,7 @@ import {bluee} from '../../assets/images';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
-const Page1 = () => {
+const Page1 = ({navigation}) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -57,6 +57,7 @@ const Page1 = () => {
       }
       console.error('Firebase Hatası:', error);
     }
+    navigation.navigate("giris")
   };
 
   return (
@@ -111,6 +112,10 @@ const Page1 = () => {
         <TouchableOpacity style={styles.button} onPress={handleSignUp}>
           <Text style={styles.buttonText}>Kayıt Ol</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={{ ...styles.button, backgroundColor: 'white' }} onPress={() => navigation.navigate("giris")}>
+          <Text style={{...styles.buttonText,color:"black"}}>Giris Yap</Text>
+        </TouchableOpacity>
+
       </View>
     </ImageBackground>
   );

@@ -40,7 +40,7 @@ const AramaSayfasi = () => {
   const fetchProducts = async () => {
     try {
       console.log('Veri çekme işlemi başlıyor...');
-      const response = await fetch('http://192.168.13.159:5001/tum_urunler');
+      const response = await fetch('http://10.192.112.212:5001/tum_urunler');
       if (!response.ok) {
         throw new Error(`Sunucu hatası: ${response.status}`);
       }

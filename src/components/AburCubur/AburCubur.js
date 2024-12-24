@@ -41,7 +41,7 @@ const AburCubur = ({
   const fetchIcecek = async () => {
     try {
       console.log('Veri çekme işlemi başlıyor...');
-      const response = await fetch('http://172.20.10.12:5001/aburcubur');
+      const response = await fetch('http://10.192.112.212:5001/aburcubur');
       if (!response.ok) {
         throw new Error(`Sunucu hatası: ${response.status}`);
       }
@@ -106,6 +106,7 @@ const AburCubur = ({
       keyExtractor={item => item.urun_adi}
       horizontal={horizontal}
       numColumns={sayısı}
+      showsHorizontalScrollIndicator={false}
       renderItem={({item}) => (
         <TouchableOpacity
           onPress={() =>

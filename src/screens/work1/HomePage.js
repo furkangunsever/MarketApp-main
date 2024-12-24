@@ -96,7 +96,7 @@ const HomePage = ({navigation}) => {
             <Text style={styles.kullaniciadi}>{userInitials}</Text>
           </TouchableOpacity>
         </View>
-        <ScrollView horizontal={true} style={styles.marketKonum}>
+        <ScrollView horizontal={true} style={styles.marketKonum} showsHorizontalScrollIndicator={false}>
           <TouchableOpacity onPress={() => navigation.navigate('misaş')}>
             <Image style={styles.market} source={Misaş} />
           </TouchableOpacity>

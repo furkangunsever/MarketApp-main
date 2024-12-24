@@ -29,7 +29,7 @@ const ChatBot = () => {
     setInputText('');
 
     try {
-      const url = 'http://172.20.10.12:5001/api/get-response'; // Flask API URL'si
+      const url = 'http://10.192.112.212:5001/api/get-response'; // Flask API URL'si
       const response = await fetch(url, {
         method: 'POST',
         headers: {

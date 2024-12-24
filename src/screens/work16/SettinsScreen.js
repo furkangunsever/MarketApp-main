@@ -3,6 +3,7 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import auth from '@react-native-firebase/auth';
+import BottomTabs from '../../components/BottomTabs/BottomTabs';
 
 const SettingsScreen = ({navigation}) => {
   const handleLogout = async () => {
@@ -49,6 +50,9 @@ const SettingsScreen = ({navigation}) => {
         text="Hakkımızda"
         onPress={() => navigation.navigate('Hakkimizda')}
       />
+      <View style={{position: 'absolute', bottom: 0, width: '100%'}}>
+        <BottomTabs />
+      </View>
     </View>
   );
 };
