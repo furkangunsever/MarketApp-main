@@ -1,79 +1,128 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# ElAkce - Market Fiyat Karsilastirma Uygulamasi
 
-# Getting Started
+ElAkce, kullanicilarin farkli marketlerdeki urun fiyatlarini karsilastirmasini kolaylastiran bir React Native mobil uygulamasidir. Uygulama; urun arama, favorilere ekleme, urun detayi/fiyat karsilastirma, Firebase tabanli kimlik dogrulama ve chatbot destegi gibi ozellikler sunar.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## Proje Ozet
 
-## Step 1: Start the Metro Server
+- **Platform:** React Native (Android ve iOS)
+- **Navigasyon:** React Navigation (Native Stack)
+- **Kimlik Dogrulama:** Firebase Authentication
+- **Veri Katmani:** Firebase Firestore + harici REST API
+- **Lokal Veri Saklama:** AsyncStorage (favoriler)
+- **Diger:** Push Notification ve sohbet (chatbot) altyapisi
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## Ana Ozellikler
 
-To start Metro, run the following command from the _root_ of your React Native project:
+- E-posta/sifre ile kayit olma ve giris yapma
+- Profil ve ayarlar ekranlari
+- Market bazli urun listeleri (Migros, Misas, A101, Sok)
+- Kategori odakli listeleme (abur cubur, icecek, donuk urun, et-balik-tavuk)
+- Tum urunler icinde arama ve filtreleme
+- Favorilere urun ekleme/cikarma ve favorileri yerel olarak saklama
+- Urun detayinda benzer urunleri farkli marketlerden cekip fiyat karsilastirma
+- Chat ekranindan harici API ile soru-cevap alma
+
+## Teknoloji Yigini
+
+### Temel Kutuphaneler
+
+- `react-native` `0.73.11`
+- `react` `18.2.0`
+- `@react-navigation/native` ve `@react-navigation/native-stack`
+- `@react-native-firebase/app`, `@react-native-firebase/auth`, `@react-native-firebase/firestore`
+- `@react-native-async-storage/async-storage`
+- `react-native-vector-icons`
+
+### Proje Mimarisi (Klasor Yapisi)
+
+```text
+MarketApp-main/
+|- src/
+|  |- assets/          # ikonlar ve gorseller
+|  |- components/      # tekrar kullanilabilir UI bilesenleri
+|  |- contexts/        # global state/context (FavoriteContext)
+|  |- routes/          # navigation tanimlari
+|  |- screens/         # ekranlar (work1...work21)
+|- android/            # Android platform dosyalari
+|- ios/                # iOS platform dosyalari
+|- index.js            # uygulama giris noktasi
+|- package.json
+```
+
+## Kurulum
+
+### 1) Gereksinimler
+
+- Node.js `>= 18`
+- npm veya yarn
+- React Native gelistirme ortami
+  - Android Studio (Android)
+  - Xcode (iOS - macOS)
+
+Detayli kurulum: [React Native Environment Setup](https://reactnative.dev/docs/environment-setup)
+
+### 2) Bagimliliklari yukle
 
 ```bash
-# using npm
+npm install
+```
+
+### 3) Firebase yapilandirmasi
+
+Bu projede Firebase Authentication ve Firestore kullanilmaktadir.
+
+- Android icin `android/app/google-services.json` dosyasi gereklidir.
+- iOS icin gerekli Firebase dosyalari/profil ayarlari yapilandirilmalidir.
+- Firebase projesinde `users` koleksiyonu uzerinden kullanici bilgileri tutulur.
+
+### 4) API endpointlerini guncelle
+
+Projede bazi ekranlarda lokal ag IP'sine sabitlenmis endpointler bulunur. Kendi backend adresinize gore guncelleyin:
+
+- `src/screens/work2/SearchPage.js`
+- `src/screens/work15/HomePageDetail.js`
+- `src/screens/work19/ChatBot.js`
+
+Ornek endpointler:
+- `http://<IP>:5001/tum_urunler`
+- `http://<IP>:5001/api/get-response`
+
+### 5) Uygulamayi calistir
+
+Metro:
+
+```bash
 npm start
-
-# OR using Yarn
-yarn start
 ```
 
-## Step 2: Start your Application
-
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
+Android:
 
 ```bash
-# using npm
 npm run android
-
-# OR using Yarn
-yarn android
 ```
 
-### For iOS
+iOS:
 
 ```bash
-# using npm
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+## Kullanilabilir Scriptler
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+- `npm start` - Metro bundler baslatir
+- `npm run android` - Android uygulamasini calistirir
+- `npm run ios` - iOS uygulamasini calistirir
+- `npm run lint` - ESLint calistirir
+- `npm test` - Jest testlerini calistirir
 
-## Step 3: Modifying your App
+## Dikkat Edilmesi Gerekenler
 
-Now that you have successfully run the app, let's modify it.
+- API URL'leri kod icinde hardcoded oldugu icin farkli aglarda manuel guncelleme gerekir.
+- Favori urunler `AsyncStorage` icinde `likedProducts` anahtari ile tutulur.
+- Giris sonrasi ana ekrana yonlendirme `src/routes/Navigation.js` icindeki stack akisi ile yonetilir.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+## Gelistirme Onerileri
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- API adreslerini `.env` yapisina tasiyarak ortam bazli yonetim saglanabilir.
+- Ekran adlarinda daha acik ve tutarli isimlendirme ile bakim kolaylastirilabilir.
+- Test kapsami; auth akisi, urun filtreleme ve favori senaryolari icin genisletilebilir.
